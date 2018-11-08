@@ -1,6 +1,6 @@
 FROM openjdk:8
 
-ARG SDK_TOOLS_LINUX sdk-tools-linux-4333796.zip
+ARG SDK_TOOLS_LINUX=sdk-tools-linux-4333796.zip
 ENV ANDROID_HOME /opt/android-sdk-linux
 
 RUN mkdir -p ${ANDROID_HOME} && \
@@ -11,4 +11,6 @@ RUN mkdir -p ${ANDROID_HOME} && \
 
 ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
 
-RUN yes | sdkmanager --licenses
+RUN mkdir /root/.android \
+ && touch /root/.android/repositories.cfg \
+ && yes | sdkmanager --licenses
